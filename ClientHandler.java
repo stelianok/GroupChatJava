@@ -68,7 +68,7 @@ public class ClientHandler implements Runnable {
       if (bufferedReader != null) {
         bufferedReader.close();
       }
-      if (bufferedReader != null) {
+      if (bufferedWriter != null) {
         bufferedWriter.close();
       }
       if (socket != null) {
