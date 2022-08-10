@@ -43,9 +43,6 @@ public class ClientHandler implements Runnable {
     }
   }
 
-  private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
-  }
-
   public void broadcastMessage(String messageToSend) {
     for (ClientHandler clientHandler : clientHandlers) {
       try {
@@ -63,5 +60,22 @@ public class ClientHandler implements Runnable {
   public void removeClientHandler() {
     clientHandlers.remove(this);
     broadcastMessage("SERVER: " + clientUsername + "has left the chat!");
+  }
+
+  private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+    removeClientHandler();
+    try {
+      if (bufferedReader != null) {
+        bufferedReader.close();
+      }
+      if (bufferedReader != null) {
+        bufferedWriter.close();
+      }
+      if (socket != null) {
+        socket.close();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
